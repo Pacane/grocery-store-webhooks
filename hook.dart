@@ -4,15 +4,14 @@ import 'package:crypto/crypto.dart' show SHA1, HMAC, CryptoUtils;
 
 void main() {
   var env = Platform.environment;
-  var token = env["GITHUB_TOKEN"];
+  var token = env["GITHUB_TOKEN_GROCERY_STORE"];
 
   if (token == null) {
     throw new Exception("GITHUB_TOKEN is not set in environment variables.");
   }
 
-  HttpServer.bind("stacktrace.ca", 3001)
+  HttpServer.bind("stacktrace.ca", 3002)
   .then((HttpServer server) {
-    print('listening on localhost, port ${server.port}');
     server.listen((HttpRequest request) {
       String signature = request.headers.value("x-hub-signature");
       var sha = new HMAC(new SHA1(), UTF8.encode(token));
